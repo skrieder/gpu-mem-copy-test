@@ -32,8 +32,10 @@ int main(int argc, char** argv) {
 
   // loop over the loop count and copy to host
   for(int i = 0; i < loopCount; i++){
-    cudaMemcpy(&host_a, dev_a, size, cudaMemcpyDeviceToHost);
+    cudaMemcpyAsync(&host_a, dev_a, size, cudaMemcpyDeviceToHost);
   }
+
+  cudaDeviceSynchronize();
 
   // free device memory
   cudaFree(dev_a);

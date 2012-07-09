@@ -24,13 +24,16 @@ int main(int argc, char** argv) {
   // malloc on the device
   cudaMalloc((void **)&dev_a, size);
 
-  // loop over the loop count and copy to device
-  for(int i = 0; i < loopCount; i++){
-    cudaMemcpy(dev_a, &host_a, size, cudaMemcpyHostToDevice);
-  }
+  // copy over to device
+  cudaMemcpy(dev_a, &host_a, size, cudaMemcpyHostToDevice);
 
   // call an empty kernel
   kernel<<<1,1>>>();
+
+  // loop over the loop count and copy to host
+  for(int i = 0; i < loopCount; i++){
+    cudaMemcpy(&host_a, dev_a, size, cudaMemcpyDeviceToHost);
+  }
 
   // free device memory
   cudaFree(dev_a);

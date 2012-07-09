@@ -1,13 +1,13 @@
 #! /bin/bash                                                                                                                                                                       
-loopCount=2
+
 # do the overall test, this many times
 for i in {1..1}
 do
-
+    loopCount=2
 #echo "Benchmarking cudaMemcpy" > logs/log$i.txt
 
     # 1 through 8 for the sleeptimes
-    for k in {1..20}
+    for k in {1..24}
     do
 #	echo "Loop Count Equals: " $loopCount >> logs/log$i.txt
 

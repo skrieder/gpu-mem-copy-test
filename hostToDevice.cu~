@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
 
   // take in a command line arg to set the loop count
   if(argc > 1){
-    loopCount = atoi(argv[1];
+    loopCount = atoi(argv[1]);
   }
 
   // delcare two variables

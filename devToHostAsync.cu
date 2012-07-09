@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-__global__ void kernel( void ) {
+//__global__ void kernel( void ) {
   // does nothing
-}
+//}
 
 int main(int argc, char** argv) {
   
@@ -28,12 +28,14 @@ int main(int argc, char** argv) {
   cudaMemcpy(dev_a, &host_a, size, cudaMemcpyHostToDevice);
 
   // call an empty kernel
-  kernel<<<1,1>>>();
+  //kernel<<<1,1>>>();
 
   // loop over the loop count and copy to host
   for(int i = 0; i < loopCount; i++){
     cudaMemcpyAsync(&host_a, dev_a, size, cudaMemcpyDeviceToHost);
   }
+
+  cudaDeviceSynchronize();
 
   // free device memory
   cudaFree(dev_a);
