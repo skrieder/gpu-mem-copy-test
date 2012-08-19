@@ -7,8 +7,9 @@ int main(){
 
   int j;
 
-  for(j = 0; j < 1000000; j++){
+  for(j = 0; j < 100000000; j++){
     i = (int *) malloc(sizeof(int));
+    free(i);
   }
   //  printf("Program completed successfuly.\n");
 
