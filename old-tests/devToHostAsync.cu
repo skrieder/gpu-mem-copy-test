@@ -18,6 +18,9 @@ int main(int argc, char** argv) {
   int host_a;
   int *dev_a;
 
+  cudaStream_t stream;
+  cudaStreamCreate(&stream);
+
   // get the size of an int for the cuda malloc
   int size = sizeof(int);
 
@@ -32,10 +35,11 @@ int main(int argc, char** argv) {
 
   // loop over the loop count and copy to host
   for(int i = 0; i < loopCount; i++){
-    cudaMemcpyAsync(&host_a, dev_a, size, cudaMemcpyDeviceToHost);
+    cudaMemcpyAsync(&host_a, dev_a, size, cudaMemcpyDeviceToHost, stream);
   }
 
-  cudaDeviceSynchronize();
+  cudaError_t e = cudaStreamSynchronize(stream);
+  if( e!=cudaSuccess)printf("%s\n", cudaGetErrorString(e));
 
   // free device memory
   cudaFree(dev_a);

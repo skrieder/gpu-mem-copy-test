@@ -13,6 +13,9 @@ int main(int argc, char** argv) {
   if(argc > 1){
     loopCount = atoi(argv[1]);
   }
+  else{
+    printf("Usage: %s <# of copies>\n", argv[0]);
+  }
 
   // delcare two variables
   int host_a;
@@ -30,10 +33,10 @@ int main(int argc, char** argv) {
   // loop over the loop count and copy to device
   for(int i = 0; i < loopCount; i++){
     cudaMemcpyAsync(dev_a, &host_a, size, cudaMemcpyHostToDevice, stream);
-    cudaError_t e = cudaStreamSynchronize(stream);
-    if( e!=cudaSuccess)printf("%s\n", cudaGetErrorString(e)); 
   }
 
+  cudaError_t e = cudaStreamSynchronize(stream);
+  if( e!=cudaSuccess)printf("%s\n", cudaGetErrorString(e)); 
 
   // free device memory
   cudaFree(dev_a);
